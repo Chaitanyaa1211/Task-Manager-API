@@ -3,7 +3,7 @@ pipeline {
     environment {
             APP_DIR     = "app"
             IMAGE_NAME  = "chaitanyaaaa/task-manager" 
-            TAG         = "${BUILD_NUMBER}"
+            TAG         = "1.${BUILD_NUMBER}"
     }
     stages {
         stage ("install") {
