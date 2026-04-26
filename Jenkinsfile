@@ -3,7 +3,7 @@ pipeline {
     environment {
             APP_DIR     = "app"
             IMAGE_NAME  = "chaitanyaaaa/task-manager" 
-            TAG         = "latest"
+            TAG         = "${BUILD_NUMBER}"
     }
     stages {
         stage ("install") {
@@ -36,7 +36,8 @@ pipeline {
         stage ("Deploy") {
             steps {
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                    sh ' kubectl apply -f k8s/ '
+                    	sh " sed -i 's|${IMAGE_NAME}:latest|${IMAGE_NAME}:${TAG}|g' k8s/deployment.yml"
+			sh ' kubectl apply -f k8s/ '
                 }
             }
         }
