@@ -36,7 +36,7 @@ pipeline {
         stage ("Deploy") {
             steps {
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                    sh "echo 'deploy stage not implimented yet' "
+                    sh ' kubectl apply -f k8s/ '
                 }
             }
         }
