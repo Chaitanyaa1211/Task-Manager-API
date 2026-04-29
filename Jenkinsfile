@@ -36,8 +36,11 @@ pipeline {
         stage ("Deploy") {
             steps {
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                    	sh " sed -i 's|${IMAGE_NAME}:latest|${IMAGE_NAME}:${TAG}|g' k8s/deployment.yml"
-			sh ' kubectl apply -f k8s/ '
+			sh '''
+			    helm upgrade --install task-manager ./helm/task-manager-api/ \
+			    --set image.tag=${TAG} \
+			    --set replicaSet=2
+			   '''   
                 }
             }
         }

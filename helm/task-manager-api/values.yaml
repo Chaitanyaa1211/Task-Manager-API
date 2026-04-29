@@ -1,0 +1,11 @@
+replicaCount: 2
+
+image:
+  repository: chaitanyaaaa/task-manager
+  tag       : "latest"
+
+service:
+  port: 80
+  targetPort: 3000
+  nodePort: 30007
+  type: NodePort
